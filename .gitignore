@@ -1,8 +1,6 @@
-*.aux
-*.fdb_latexmk
-*.fls
-*.log
-*.pdf
+sample.*
 !sample.pdf
+!sample.tex
 *.synctex.gz
 _minted*/
+.DS_Store

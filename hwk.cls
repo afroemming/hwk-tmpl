@@ -1,15 +1,18 @@
+% !TEX TS-program = arara
+% arara: lualatex: { shell: yes }
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homework}[2024/06/01 v1 homework typesetting]
+\ProvidesClass{hwk}[2024/06/01 v1 homework typesetting]
 
 \RequirePackage{etoolbox}
-\RequirePackage{xkeyval}
 \DeclareOption{insecs}{\def\insecs}
 \ProcessOptions\relax
 
+
 \LoadClass{article}
-\RequirePackage{bold-extra, minted, fancyhdr, titling}
+\RequirePackage{minted, fancyhdr, titling}
 \RequirePackage[margin=1in,headheight=24pt]{geometry}
 \RequirePackage[lastexercise]{exercise}
+\RequirePackage{newcomputermodern}
 
 
 
@@ -72,17 +75,20 @@
 }
 
 
-\setminted{autogobble,breaklines,frame=single,fontsize=\small, xleftmargin=1em, xrightmargin=1em}
+\setminted{autogobble,breaklines,frame=single, xleftmargin=1em, xrightmargin=1em}
 \setminted[text]{linenos=false}
-\usemintedstyle{sas}
+\usemintedstyle{bw}
 
 \renewcommand{\AtBeginExercise}{\itshape}
-\renewcommand{\ExerciseHeader}{\noindent
-\textbf{\textsc{\ExerciseHeaderDifficulty\ExerciseName\ %
-    \ExerciseHeaderNB\ExerciseHeaderTitle\ExerciseHeaderOrigin}}}
+\renewcommand{\ExerciseHeader}{\scshape\bfseries\noindent
+\ExerciseHeaderDifficulty\ExerciseName\ %
+    \ExerciseHeaderNB\ExerciseHeaderTitle\ExerciseHeaderOrigin.}
 \renewcommand{\AnswerHeader}{\bigskip %
-    \noindent\textbf{\textsc{\AnswerName~\ExerciseHeaderNB}}}
+    \noindent\scshape\bfseries\AnswerName~\ExerciseHeaderNB.}
 \renewcommand{\AnswerName}{Solution}
 \ifdef{\insecs}
-    {\counterwithin{Exercise}{section}} 
-    {}
+{
+    \counterwithin{Exercise}{section}
+    \renewcommand{\theExercise}{\thesection-\arabic{Exercise}}
+} 
+{}
